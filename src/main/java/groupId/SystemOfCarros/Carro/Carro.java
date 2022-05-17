@@ -20,6 +20,7 @@ public class Carro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    private String nomeImagem;
     @NotEmpty(message = "The Car Type cannot be empty")
     private String tipo;
     @NotEmpty(message = "The Car Marca cannot be empty")

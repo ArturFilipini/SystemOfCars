@@ -1,5 +1,6 @@
 package groupId.SystemOfCarros.services;
 
+import groupId.SystemOfCarros.Carro.CarUser;
 import groupId.SystemOfCarros.repository.CarUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,9 @@ public class CarroUserDetailsService implements UserDetailsService {
     private final CarUserRepository carUserRepository;
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return Optional.ofNullable(carUserRepository.findByUsername(username))
+        CarUser CarUser = Optional.ofNullable(carUserRepository.findByUsername(username))
                 .orElseThrow(() -> new UsernameNotFoundException("Carro User not found"));
+        return CarUser;
     }
+
 }

@@ -7,21 +7,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("Carro")
+@RequestMapping("carro")
 public class CarController {
    private final CarServices carServices;
-
+    private static String caminhoImagens = "\\Users\\Artur Filipini\\Pictures\\Imagens";
 
     public CarController(CarServices carServices) {
         this.carServices = carServices;
     }
-    @GetMapping
+    @GetMapping("/list")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Carro> list(){
         return carServices.listall();
@@ -54,6 +55,11 @@ public class CarController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Carro>> findByName(@PathVariable("Tipo") String Tipo){
         return ResponseEntity.ok(carServices.findByTipo(Tipo));
+    }
+    @GetMapping("/file/save")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<Carro>> SalvarImagem(@RequestParam("file")MultipartFile arquivo){
+        return (ResponseEntity<List<Carro>>) ResponseEntity.ok();
     }
 
 }
